@@ -190,7 +190,7 @@ pipeline {
 ### 5- Installing and configuring gitea with jenkins:
 Following the [gitea guide](https://docs.gitea.io/en-us/install-from-binary/), gitea was installed as a binary, all the files were pushed to a new repo
 
-![Gitea preview]()
+![Gitea preview](https://github.com/theJaxon/devops-ITI-challenges/blob/master/challenge-01/etc/gitea.png)
 
 Then it was configured as follows to work with jenkins:
 From settings > applications
