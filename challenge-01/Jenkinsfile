@@ -3,7 +3,6 @@ pipeline
     agent any
 
     stages {
-        
         stage('docker run tests') {
             steps {
                sh "cd challenge-01 && docker build -t \"pytest\" . && docker run --rm \"pytest\" \"/usr/src/app/tests/test.py\"" 
