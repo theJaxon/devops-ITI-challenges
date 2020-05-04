@@ -1,0 +1,16 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('docker run tests') {
+            steps {
+               sh "docker build -t \"pytest\" . && docker run --rm \"pytest\" \"/usr/src/app/tests/test.py\"" 
+            }
+        }
+        stage('docker-compose build & run') {
+            steps {
+                sh "docker-compose build && docker-compose up -d "
+            }
+        }
+    }
+}

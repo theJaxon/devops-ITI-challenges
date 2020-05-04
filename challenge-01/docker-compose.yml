@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  tornado:
+    build: .
+    container_name: python_iti_challenge
+    command: ["hello.py"]
+
+    environment: 
+      - REDIS_HOST=redis 
+      - REDIS_PORT=6379
+      - REDIS_DB=0
+      - ENVIRONMENT=dev 
+      - HOST=localhost
+      - PORT=4222
+    depends_on: 
+      - redis
+    ports: 
+      - "4222:4222"
+
+  redis:
+    image: redis:alpine
+    container_name: redis_iti_challenge
+    expose:
+      - 6379
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        
