@@ -2,7 +2,7 @@ version: "3.8"
 services:
   tornado:
     build: .
-    container_name: python_iti_challenge
+    container_name: python_iti_challenge_master
     command: ["hello.py"]
 
     environment: 
@@ -19,7 +19,7 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: redis_iti_challenge
+    container_name: redis_iti_challenge_master
     expose:
       - 6379
     deploy:
