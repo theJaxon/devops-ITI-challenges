@@ -10,7 +10,7 @@ pipeline
         }
         stage('docker-compose build & run') {
             steps {
-                sh "cd challenge-01 && docker-compose build && docker-compose up -p test_project -d "
+                sh "cd challenge-01 && docker-compose build -p test_project && docker-compose up -d "
             }
         }
     }
