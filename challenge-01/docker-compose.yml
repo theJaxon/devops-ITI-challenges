@@ -5,6 +5,7 @@ services:
     container_name: python_iti_challenge_test
     command: ["hello.py"]
     
+    
     environment: 
       - REDIS_HOST=redis 
       - REDIS_PORT=6379
