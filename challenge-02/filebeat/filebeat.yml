@@ -1,0 +1,22 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+output.logstash:
+  enabled: true
+  hosts: ["logstash:5044"]
+
+# Debugging -- check if filebeats can locally store logs -- START
+
+# output.file:
+#   path: "/tmp/filebeat"
+#   filename: filebeat
+
+# Debugging END
+
+filebeat.inputs:
+- type: log 
+  paths:
+    - /var/log/nginx/*.log
+    
