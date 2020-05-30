@@ -1,0 +1,11 @@
+- name: Install Docker Compose
+  get_url: 
+    url: "https://github.com/docker/compose/releases/download/{{ compose_version }}/docker-compose-Linux-x86_64"
+    dest: "{{ compose_dest }}"
+    mode: '0777'
+
+- name: Create a symbolic link for Docker Compose binary 
+  file: 
+    src: "{{ compose_dest }}"
+    dest: "{{ compose_symlink_dest }}"
+    state: link

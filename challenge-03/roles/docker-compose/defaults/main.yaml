@@ -1,0 +1,3 @@
+compose_dest: /usr/local/bin/docker-compose
+compose_symlink_dest: /usr/bin/docker-compose
+compose_version: 1.25.5

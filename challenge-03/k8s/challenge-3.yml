@@ -1,0 +1,84 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: tornado-app
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      service: challenge-3
+  template:
+    metadata:
+      labels:
+        service: challenge-3 
+    spec: 
+      containers:
+        - name: tornado
+          image: thejaxon/tornado-app:v1
+          env: 
+          - name: REDIS_HOST 
+            value: "redis"
+          - name: REDIS_PORT 
+            value: "6379"
+          - name: REDIS_DB 
+            value: "0"
+          - name: ENVIRONMENT 
+            value: "dev"
+          - name: HOST
+            value: "localhost"
+          - name: PORT
+            value: "4222"
+          ports:
+          - containerPort: 4222
+          command: ["python3", "hello.py"]
+          
+--- 
+
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: tornado-app 
+
+spec: 
+  type: NodePort 
+  ports:
+  - port: 4222 
+  selector: 
+    service: challenge-3
+
+---
+
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: redis
+
+spec: 
+  replicas: 2
+  selector:
+    matchLabels:
+      service: challenge-3 
+  template: 
+    metadata:
+      labels: 
+        service: challenge-3 
+    spec:
+      
+      containers:
+      - name: redis 
+        image: redis:alpine
+
+--- 
+
+apiVersion: v1 
+kind: Service 
+metadata: 
+  name: redis 
+
+spec: 
+  type: ClusterIP 
+  ports:
+  - port: 6379
+  selector: 
+    service: challenge-3

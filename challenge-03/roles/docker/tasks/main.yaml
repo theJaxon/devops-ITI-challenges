@@ -1,0 +1,35 @@
+- name: Install packages that allow apt to be used over HTTPS
+  apt:
+    name: "{{ apt_http_packages }}"
+    state: present
+    update_cache: yes
+
+- name: Add an apt signing key for Docker
+  apt_key:
+    url: "{{ docker_signing_url }}"
+    state: present
+
+- name: Add apt repository for stable version
+  apt_repository:
+    repo: "{{ bionic_repo }}"
+    state: present
+
+- name: Install docker and its dependecies
+  apt: 
+    name: "{{ docker_packages }}"
+    state: present
+
+- name: Add vagrant user to docker group
+  user:
+    name: vagrant
+    group: docker
+
+- name: Enable and start Docker service 
+  service:
+    name: docker 
+    enabled: yes 
+    state: started
+
+- name: install docker-py for API calls
+  pip:
+    name: docker-py

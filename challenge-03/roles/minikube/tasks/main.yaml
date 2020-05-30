@@ -1,0 +1,10 @@
+- name: Install Minikube 
+  get_url:
+    url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 
+    dest: "{{ minikube_dest }}/minikube"
+    mode: '0777'
+
+- name: Install conntrack to run minikube with --driver=none 
+  apt: 
+    name: conntrack
+    state: present

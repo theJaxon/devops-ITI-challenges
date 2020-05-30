@@ -1,0 +1,14 @@
+# https://www.portainer.io/installation/
+
+- name: create docker volume  
+  docker_volume: 
+    name: portainer_data 
+
+- name: create portainer container
+  docker_container: 
+    name: portainer
+    image: portainer/portainer
+    restart_policy: always
+    ports: "{{ ports }}"
+    volumes: "{{ volumes }}"
+
