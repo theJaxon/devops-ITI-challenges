@@ -1,5 +1,6 @@
 ### Challenge 3 [Deploy tornado app using K8s]:
-
+[![forthebadge](https://forthebadge.com/images/badges/certified-yourboyserge.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/cc-0.svg)](https://forthebadge.com)
 ### Setting up the environment:
 *Although the challenge required a deployment using multi node cluster, i've only experimented with deployment using Minikube till this point (shouldn't differ that much on a multi node cluster).
 
@@ -31,6 +32,7 @@ RUN apk add git && \
     git clone https://github.com/MohamedMSaeed/DevOps-Challenge-Demo-Code.git . && \
     pip install -r requirements.txt
 ```
+* **git clone url .** is used in order to fetch the files directly without the need for a parent directoy, the condition that must be fulfilled is that this command must be executed within an empty directory.
 
 Image creation with the build command
 ```bash
