@@ -1,4 +1,4 @@
-# Challenge 3 [Deploy tornado app using K8s]:
+### Challenge 3 [Deploy tornado app using K8s]:
 
 ### Setting up the environment:
 *Although the challenge required a deployment using multi node cluster, i've only experimented with deployment using Minikube till this point (shouldn't differ that much on a multi node cluster).
@@ -49,7 +49,7 @@ First login to dockerhub:
 docker login
 ```
 
-Tagging and pushing the image
+Tagging and [pushing the image](https://hub.docker.com/repository/docker/thejaxon/tornado-app)
 ```bash
 docker tag tornado-app thejaxon/tornado-app:v1
 
@@ -122,7 +122,7 @@ spec:
         image: redis:alpine
 ```
 
-Service 1 is for tornado-app and is of type `NodePort` so that it allows for app access from outside the cluster as in http://$IP:$PORT
+Service 1 is for tornado-app and is of type `NodePort` so that it allows for app access from outside the cluster as in `http://$IP:$PORT`
 so after deploying and running `kubectl get svc`
 ```bash
 vagrant@ServiceDiscovery:/vagrant/k8s$ sudo kubectl get  svc 
@@ -173,4 +173,4 @@ service/redis created
 ```
 
 ### Final result:
-![Preview]()
+![Preview](https://github.com/theJaxon/devops-ITI-challenges/blob/master/challenge-03/etc/Preview_Final_Result.jpeg)
