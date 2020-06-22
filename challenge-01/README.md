@@ -203,3 +203,57 @@ a new webhook was added with a target url [http://localhost:8080/gitea-webhook/p
 
 finally in the jenkins pipeline configuration Poll SCM was selected in the optional filter to allow building whenever a change is made to the gitea repo
 
+--- 
+
+### Approach 2 [Running tests in multi-stage builds]:
+```Dockerfile
+FROM python:alpine AS test_stage 
+WORKDIR /usr/src/app
+CMD [ "python3" ] ["test.py"]
+RUN apk update && \ 
+    apk --no-cache add git && \ 
+    # Clone the tornado app repo into the current WORKDIR
+    git clone https://github.com/MohamedMSaeed/DevOps-Challenge-Demo-Code.git . && \ 
+    # Install requirements 
+    cd tests && \
+    python3 test.py 
+
+FROM python:alpine 
+WORKDIR /usr/src/app 
+COPY --from=test_stage /usr/src/app .
+RUN pip install -r requirements.txt
+```
+
+```yaml
+ 
+version: "3.8"
+services:
+  tornado:
+    build: .
+    container_name: python_iti_challenge_master   
+    environment: 
+    - REDIS_HOST=redis 
+    - REDIS_PORT=6379
+    - REDIS_DB=0
+    - ENVIRONMENT=dev 
+    - HOST=localhost
+    - PORT=4222 
+    depends_on: 
+      - redis
+    ports: 
+      - "4222:4222"
+    command: python3 hello.py
+
+  redis:
+    image: redis:alpine
+    container_name: redis_iti_challenge_master
+    expose:
+      - 6379
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+```
